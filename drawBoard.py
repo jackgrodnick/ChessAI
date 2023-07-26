@@ -117,14 +117,19 @@ def legalMovesWhite(piece):
                 if board[piece[3][0]-2][piece[3][1]][0] == None:
                     squares.append([piece[3][0]-2, piece[3][1]])
 
-            if board[piece[3][0]-1][piece[3][1]][0] == None:
-                squares.append([piece[3][0]-1, piece[3][1]])
 
-            if board[piece[3][0]-1][piece[3][1]-1][0] is not None and board[piece[3][0]-1][piece[3][1]-1][4] == "b":
-                squares.append([piece[3][0]-1, piece[3][1]-1])
+            if (piece[3][0]-1 >= 0):
+                if board[piece[3][0]-1][piece[3][1]][0] == None:
+                    squares.append([piece[3][0]-1, piece[3][1]])
 
-            if board[piece[3][0]-1][piece[3][1]+1][0] is not None and board[piece[3][0]-1][piece[3][1]-1][4] == "b":
-                squares.append([piece[3][0]-1, piece[3][1]+1])
+            
+            if (piece[3][0]-1 >= 0 and piece[3][1]-1 >= 0):
+                if board[piece[3][0]-1][piece[3][1]-1][0] is not None and board[piece[3][0]-1][piece[3][1]-1][4] == "b":
+                    squares.append([piece[3][0]-1, piece[3][1]-1])
+
+            if (piece[3][0]-1 >= 0 and piece[3][1]+1 < 8):
+                if board[piece[3][0]-1][piece[3][1]+1][0] is not None and board[piece[3][0]-1][piece[3][1]+1][4] == "b":
+                    squares.append([piece[3][0]-1, piece[3][1]+1])
 
         if piece[2] == 'n':
             if (piece[3][0]-2 >= 0 and piece[3][1]-1 >= 0):
@@ -312,6 +317,131 @@ def legalMovesWhite(piece):
                         squares.append([piece[3][0], piece[3][1]-v])
                     elif board[piece[3][0]][piece[3][1]-v][4] == 'b':
                         squares.append([piece[3][0], piece[3][1]-v])
+                        di = False
+                    else:
+                        di = False
+                else:
+                    di = False
+
+        if piece[2] == 'q':
+
+            di = True
+            v = 0
+            while di:
+                v += 1
+                if (piece[3][0]-v >= 0):
+                    if board[piece[3][0]-v][piece[3][1]][0] == None:
+                        squares.append([piece[3][0]-v, piece[3][1]])
+                    elif board[piece[3][0]-v][piece[3][1]][4] == 'b':
+                        squares.append([piece[3][0]-v, piece[3][1]])
+                        di = False
+                    else:
+                        di = False
+                else:
+                    di = False
+
+            di = True
+            v = 0
+            while di:
+                v += 1
+                if (piece[3][1]+v < 8):
+                    if board[piece[3][0]][piece[3][1]+v][0] == None:
+                        squares.append([piece[3][0], piece[3][1]+v])
+                    elif board[piece[3][0]][piece[3][1]+v][4] == 'b':
+                        squares.append([piece[3][0], piece[3][1]+v])
+                        di = False
+                    else:
+                        di = False
+                else:
+                    di = False
+
+
+            di = True
+            v = 0
+            while di:
+                v += 1
+                if (piece[3][0]+v < 8):
+                    if board[piece[3][0]+v][piece[3][1]][0] == None:
+                        squares.append([piece[3][0]+v, piece[3][1]])
+                    elif board[piece[3][0]+v][piece[3][1]][4] == 'b':
+                        squares.append([piece[3][0]+v, piece[3][1]])
+                        di = False
+                    else:
+                        di = False
+                else:
+                    di = False
+
+
+            di = True
+            v = 0
+            while di:
+                v += 1
+                if (piece[3][1]-v >= 0):
+                    if board[piece[3][0]][piece[3][1]-v][0] == None:
+                        squares.append([piece[3][0], piece[3][1]-v])
+                    elif board[piece[3][0]][piece[3][1]-v][4] == 'b':
+                        squares.append([piece[3][0], piece[3][1]-v])
+                        di = False
+                    else:
+                        di = False
+                else:
+                    di = False
+            di = True
+            v = 0
+            while di:
+                v += 1
+                if (piece[3][0]-v >= 0 and piece[3][1]-v >= 0):
+                    if board[piece[3][0]-v][piece[3][1]-v][0] == None:
+                        squares.append([piece[3][0]-v, piece[3][1]-v])
+                    elif board[piece[3][0]-v][piece[3][1]-v][4] == 'b':
+                        squares.append([piece[3][0]-v, piece[3][1]-v])
+                        di = False
+                    else:
+                        di = False
+                else:
+                    di = False
+
+            di = True
+            v = 0
+            while di:
+                v += 1
+                if (piece[3][0]-v >= 0 and piece[3][1]+v < 8):
+                    if board[piece[3][0]-v][piece[3][1]+v][0] == None:
+                        squares.append([piece[3][0]-v, piece[3][1]+v])
+                    elif board[piece[3][0]-v][piece[3][1]+v][4] == 'b':
+                        squares.append([piece[3][0]-v, piece[3][1]+v])
+                        di = False
+                    else:
+                        di = False
+                else:
+                    di = False
+
+
+            di = True
+            v = 0
+            while di:
+                v += 1
+                if (piece[3][0]+v < 8 and piece[3][1]+v < 8):
+                    if board[piece[3][0]+v][piece[3][1]+v][0] == None:
+                        squares.append([piece[3][0]+v, piece[3][1]+v])
+                    elif board[piece[3][0]+v][piece[3][1]+v][4] == 'b':
+                        squares.append([piece[3][0]+v, piece[3][1]+v])
+                        di = False
+                    else:
+                        di = False
+                else:
+                    di = False
+
+
+            di = True
+            v = 0
+            while di:
+                v += 1
+                if (piece[3][0]+v < 8 and piece[3][1]-v >= 0):
+                    if board[piece[3][0]+v][piece[3][1]-v][0] == None:
+                        squares.append([piece[3][0]+v, piece[3][1]-v])
+                    elif board[piece[3][0]+v][piece[3][1]-v][4] == 'b':
+                        squares.append([piece[3][0]+v, piece[3][1]-v])
                         di = False
                     else:
                         di = False
