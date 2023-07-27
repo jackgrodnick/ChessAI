@@ -164,6 +164,15 @@ def legalMovesWhite(piece, playerPosition):
                 if board[piece[3][0]-1][piece[3][1]+1][0] is not None and board[piece[3][0]-1][piece[3][1]+1][4] == "b":
                     squares.append([piece[3][0]-1, piece[3][1]+1])
 
+            if len(preMoves) != 0:
+                if (preMoves[len(preMoves)-1]["piece"][2] == "p" and abs(preMoves[len(preMoves)-1]["from"][0]-preMoves[len(preMoves)-1]["to"][0]) == 2):
+                    if (piece[3][1]-preMoves[len(preMoves)-1]["to"][1] == 1 and piece[3][0]-preMoves[len(preMoves)-1]["to"][0] == 0):
+                        squares.append([piece[3][0]-1, piece[3][1]-1])
+
+                if (preMoves[len(preMoves)-1]["piece"][2] == "p" and abs(preMoves[len(preMoves)-1]["from"][0]-preMoves[len(preMoves)-1]["to"][0]) == 2):
+                    if (piece[3][1]-preMoves[len(preMoves)-1]["to"][1] == -1 and piece[3][0]-preMoves[len(preMoves)-1]["to"][0] == 0):
+                        squares.append([piece[3][0]-1, piece[3][1]+1])
+
         if piece[2] == "p" and playerPosition == "back":
 
             if piece[3][0] == 1:
@@ -185,6 +194,15 @@ def legalMovesWhite(piece, playerPosition):
             if (piece[3][0]+1 < 8 and piece[3][1]+1 < 8):
                 if board[piece[3][0]+1][piece[3][1]+1][0] is not None and board[piece[3][0]+1][piece[3][1]+1][4] == "b":
                     squares.append([piece[3][0]+1, piece[3][1]+1])
+
+            if len(preMoves) != 0:
+                if (preMoves[len(preMoves)-1]["piece"][2] == "p" and abs(preMoves[len(preMoves)-1]["from"][0]-preMoves[len(preMoves)-1]["to"][0]) == 2):
+                    if (piece[3][1]-preMoves[len(preMoves)-1]["to"][1] == 1 and piece[3][0]-preMoves[len(preMoves)-1]["to"][0] == 0):
+                        squares.append([piece[3][0]+1, piece[3][1]-1])
+
+                if (preMoves[len(preMoves)-1]["piece"][2] == "p" and abs(preMoves[len(preMoves)-1]["from"][0]-preMoves[len(preMoves)-1]["to"][0]) == 2):
+                    if (piece[3][1]-preMoves[len(preMoves)-1]["to"][1] == -1 and piece[3][0]-preMoves[len(preMoves)-1]["to"][0] == 0):
+                        squares.append([piece[3][0]+1, piece[3][1]+1])
 
         if piece[2] == 'n':
             if (piece[3][0]-2 >= 0 and piece[3][1]-1 >= 0):
@@ -261,6 +279,16 @@ def legalMovesWhite(piece, playerPosition):
                 if playerPosition == "front":
                     if board[7][6][0] is None and board[7][5][0] is None:
                         squares.append([7, 6])
+
+            if not checkWhiteKingMove() and not checkWhiteLeftRookMove():
+                if playerPosition == "back":
+                    if board[0][1][0] is None and board[0][2][0] is None and board[0][3][0] is None:
+                        squares.append([0, 2])
+
+            if not checkWhiteKingMove() and not checkWhiteRightRookMove():
+                if playerPosition == "back":
+                    if board[0][6][0] is None and board[0][5][0] is None:
+                        squares.append([0, 6])
 
         if piece[2] == 'b':
             di = True
@@ -548,6 +576,15 @@ def legalMovesBlack(piece, playerPosition):
                 if board[piece[3][0]-1][piece[3][1]+1][0] is not None and board[piece[3][0]-1][piece[3][1]+1][4] == "w":
                     squares.append([piece[3][0]-1, piece[3][1]+1])
 
+            if len(preMoves) != 0:
+                if (preMoves[len(preMoves)-1]["piece"][2] == "p" and abs(preMoves[len(preMoves)-1]["from"][0]-preMoves[len(preMoves)-1]["to"][0]) == 2):
+                    if (piece[3][1]-preMoves[len(preMoves)-1]["to"][1] == 1 and piece[3][0]-preMoves[len(preMoves)-1]["to"][0] == 0):
+                        squares.append([piece[3][0]-1, piece[3][1]-1])
+
+                if (preMoves[len(preMoves)-1]["piece"][2] == "p" and abs(preMoves[len(preMoves)-1]["from"][0]-preMoves[len(preMoves)-1]["to"][0]) == 2):
+                    if (piece[3][1]-preMoves[len(preMoves)-1]["to"][1] == -1 and piece[3][0]-preMoves[len(preMoves)-1]["to"][0] == 0):
+                        squares.append([piece[3][0]-1, piece[3][1]+1])
+
         if piece[2] == "p" and playerPosition == "back":
 
             if piece[3][0] == 1:
@@ -569,6 +606,15 @@ def legalMovesBlack(piece, playerPosition):
             if (piece[3][0]+1 < 8 and piece[3][1]+1 < 8):
                 if board[piece[3][0]+1][piece[3][1]+1][0] is not None and board[piece[3][0]+1][piece[3][1]+1][4] == "w":
                     squares.append([piece[3][0]+1, piece[3][1]+1])
+
+            if len(preMoves) != 0:
+                if (preMoves[len(preMoves)-1]["piece"][2] == "p" and abs(preMoves[len(preMoves)-1]["from"][0]-preMoves[len(preMoves)-1]["to"][0]) == 2):
+                    if (piece[3][1]-preMoves[len(preMoves)-1]["to"][1] == 1 and piece[3][0]-preMoves[len(preMoves)-1]["to"][0] == 0):
+                        squares.append([piece[3][0]+1, piece[3][1]-1])
+
+                if (preMoves[len(preMoves)-1]["piece"][2] == "p" and abs(preMoves[len(preMoves)-1]["from"][0]-preMoves[len(preMoves)-1]["to"][0]) == 2):
+                    if (piece[3][1]-preMoves[len(preMoves)-1]["to"][1] == -1 and piece[3][0]-preMoves[len(preMoves)-1]["to"][0] == 0):
+                        squares.append([piece[3][0]+1, piece[3][1]+1])
 
         if piece[2] == 'n':
             if (piece[3][0]-2 >= 0 and piece[3][1]-1 >= 0):
@@ -635,6 +681,26 @@ def legalMovesBlack(piece, playerPosition):
             if (piece[3][0]-1 >= 0 and piece[3][1]-1 >= 0):
                 if board[piece[3][0]-1][piece[3][1]-1][0] == None or board[piece[3][0]-1][piece[3][1]-1][4] == 'w':
                     squares.append([piece[3][0]-1, piece[3][1]-1])
+
+            if not checkBlackKingMove() and not checkBlackLeftRookMove():
+                if playerPosition == "front":
+                    if board[7][1][0] is None and board[7][2][0] is None:
+                        squares.append([7, 1])
+
+            if not checkBlackKingMove() and not checkBlackRightRookMove():
+                if playerPosition == "front":
+                    if board[7][6][0] is None and board[7][5][0] is None and board[7][4][0] is None:
+                        squares.append([7, 5])
+
+            if not checkBlackKingMove() and not checkBlackLeftRookMove():
+                if playerPosition == "back":
+                    if board[0][1][0] is None and board[0][2][0] is None and board[0][3][0] is None:
+                        squares.append([0, 2])
+
+            if not checkBlackKingMove() and not checkBlackRightRookMove():
+                if playerPosition == "back":
+                    if board[0][6][0] is None and board[0][5][0] is None:
+                        squares.append([0, 6])
 
         if piece[2] == 'b':
             di = True
@@ -943,9 +1009,10 @@ def playerMoved(index, piece):
     current_piece = piece[3]
     board[current_piece[0]][current_piece[1]] = [None]
     piece[3] = index
+    oldPiece = board[index[0]][index[1]]
     board[index[0]][index[1]] = piece
 
-    if piece[2] == "k" and current_piece[1]-index[1] == 2:
+    if piece[2] == "k" and piece[4] == "w" and current_piece[1]-index[1] == 2:
         print("cas")
         rookShort = returnPiece(current_piece[1]-4, current_piece[0])
         
@@ -954,7 +1021,7 @@ def playerMoved(index, piece):
         rookShort[3] = [piece[3][0], piece[3][1]+1]
         board[piece[3][0]][piece[3][1]+1] = rookShort
 
-    if piece[2] == "k" and index[1]-current_piece[1] == 2:
+    if piece[2] == "k" and piece[4] == "w" and index[1]-current_piece[1] == 2:
         print("cas")
         rookShort = returnPiece(current_piece[1]+3, current_piece[0])
         
@@ -962,6 +1029,37 @@ def playerMoved(index, piece):
         board[current_rook[0]][current_rook[1]] = [None]
         rookShort[3] = [piece[3][0], piece[3][1]-1]
         board[piece[3][0]][piece[3][1]-1] = rookShort
+
+    if piece[2] == "k" and piece[4] == "b" and index[1]-current_piece[1] == 2:
+        print("cas")
+        rookShort = returnPiece(current_piece[1]+4, current_piece[0])
+        
+        current_rook = rookShort[3]
+        board[current_rook[0]][current_rook[1]] = [None]
+        rookShort[3] = [piece[3][0], piece[3][1]-1]
+        board[piece[3][0]][piece[3][1]-1] = rookShort
+
+    if piece[2] == "k" and piece[4] == "b" and current_piece[1]-index[1] == 2:
+        print("cas")
+        print("short")
+        rookShort = returnPiece(current_piece[1]-3, current_piece[0])
+        print(rookShort)
+        current_rook = rookShort[3]
+        board[current_rook[0]][current_rook[1]] = [None]
+        rookShort[3] = [piece[3][0], piece[3][1]+1]
+        board[piece[3][0]][piece[3][1]+1] = rookShort
+
+    if len(preMoves) != 0:
+        if oldPiece[0] is None and piece[2] == "p" and current_piece[1]-index[1] != 0:
+            if current_piece[0] - index[0] == -1:
+                print("enpassant")
+                print([index[0]-1, index[1]])
+                board[index[0]-1][index[1]] = [None]
+            if index[0] - current_piece[0] == -1:
+                print("enpassant")
+                print([index[0]+1, index[1]])
+                board[index[0]+1][index[1]] = [None]
+
 
 
     preMoves.append({"id": id,
@@ -971,7 +1069,6 @@ def playerMoved(index, piece):
     id += 1
     
 
-    print(preMoves)
 
 
 def getBoard():
