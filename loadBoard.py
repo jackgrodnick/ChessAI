@@ -1,6 +1,7 @@
 import pygame
 import chooseColor
 import drawBoard
+import chessAI
 
 pygame.init()
 
@@ -17,7 +18,7 @@ human_color = None
 players_turn = False
 
 WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
+BLACK = (211, 211, 211)
 
 moves = []
 selected_piece = None
@@ -35,6 +36,12 @@ while running:
 
             if human_color is None:
                 human_color = chooseColor.getPlayerColor(mouse_pos)
+
+                if human_color == "White":
+                    ai_color = "Black"
+                elif human_color == "Black":
+                    ai_color = "White"
+
                 if human_color == "White":
                     drawBoard.makeBoardW()
                     drawBoard.drawWhiteBoard(screen, BLACK, WHITE)
@@ -43,19 +50,28 @@ while running:
                 elif human_color == "Black":
                     drawBoard.makeBoardB()
                     drawBoard.drawBlackBoard(screen, BLACK, WHITE)
+                    players_turn = False
 
-            if len(moves) != 0 and selected_piece is not None:
-                if [mouse_pos[1]//100, mouse_pos[0]//100] in moves:
-                    print('d')
-                    drawBoard.playerMoved([mouse_pos[1]//100, mouse_pos[0]//100], selected_piece)
-                    if human_color == "White":
-                        drawBoard.drawWhiteBoard(screen, BLACK, WHITE)
-                    elif human_color == "Black":
-                        drawBoard.drawBlackBoard(screen, BLACK, WHITE) 
 
             if players_turn:
 
+                if len(moves) != 0 and selected_piece is not None:
+                    if [mouse_pos[1]//100, mouse_pos[0]//100] in moves:
+                        drawBoard.playerMoved([mouse_pos[1]//100, mouse_pos[0]//100], selected_piece)
+                        players_turn = False
+                        if human_color == "White":
+                            drawBoard.drawWhiteBoard(screen, BLACK, WHITE)
+                        elif human_color == "Black":
+                            drawBoard.drawBlackBoard(screen, BLACK, WHITE)
+
+                        temp = None
+                        selected_piece = None
+                        moves = []
+                        continue
+
                 temp = drawBoard.returnPiece(mouse_pos[0]//100, mouse_pos[1]//100)
+
+                # if temp[]
 
                 if temp == selected_piece:
                     if human_color == "White":
@@ -78,9 +94,19 @@ while running:
 
                 print(selected_piece)
 
-                moves = drawBoard.legalMovesWhite(selected_piece)
+                if human_color == "White":
+                    moves = drawBoard.legalMovesWhite(selected_piece, "front")
+                    
+                elif human_color == "Black":
+                    moves = drawBoard.legalMovesBlack(selected_piece, "front")
+                    
 
                 drawBoard.drawMoves(screen, moves)
+            
+
+    if not players_turn and human_color is not None:
+        chessAI.move(drawBoard.getBoard(), ai_color, screen, BLACK, WHITE)
+        players_turn = True
        
 
         
