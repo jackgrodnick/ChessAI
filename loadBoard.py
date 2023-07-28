@@ -43,17 +43,18 @@ while running:
                     ai_color = "White"
 
                 if human_color == "White":
-                    drawBoard.makeBoardW()
+                    drawBoard.makeBoard()
                     drawBoard.drawWhiteBoard(screen, BLACK, WHITE)
                     players_turn = True
 
                 elif human_color == "Black":
-                    drawBoard.makeBoardB()
+                    drawBoard.makeBoard()
                     drawBoard.drawBlackBoard(screen, BLACK, WHITE)
                     players_turn = False
 
 
             if players_turn:
+                print("attack: ", drawBoard.findAttackers())
 
                 if len(moves) != 0 and selected_piece is not None:
                     if [mouse_pos[1]//100, mouse_pos[0]//100] in moves:
@@ -70,8 +71,6 @@ while running:
                         continue
 
                 temp = drawBoard.returnPiece(mouse_pos[0]//100, mouse_pos[1]//100)
-
-                # if temp[]
 
                 if temp == selected_piece:
                     if human_color == "White":
@@ -95,10 +94,12 @@ while running:
                 print(selected_piece)
 
                 if human_color == "White":
-                    moves = drawBoard.legalMovesWhite(selected_piece, "front")
+                    # moves = drawBoard.legalMovesWhite(selected_piece, "front")
+                    moves = drawBoard.legalMoves(selected_piece)
                     
                 elif human_color == "Black":
-                    moves = drawBoard.legalMovesBlack(selected_piece, "front")
+                    # moves = drawBoard.legalMovesBlack(selected_piece, "front")
+                    moves = drawBoard.legalMoves(selected_piece)
                     
 
                 drawBoard.drawMoves(screen, moves)

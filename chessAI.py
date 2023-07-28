@@ -38,10 +38,14 @@ def move(board, ai_color, screen, BLACK, WHITE):
     while len(moves) == 0:
         if ai_color == "White":
             random_white_piece = random.choice(white_pieces)
-            moves = drawBoard.legalMovesWhite(random_white_piece, "back")
+            # moves = drawBoard.legalMovesWhite(random_white_piece, "back")
+            drawBoard.findAttackers()
+            moves = drawBoard.legalMoves(random_white_piece)
         elif ai_color == "Black":  
             random_black_piece = random.choice(black_pieces)
-            moves = drawBoard.legalMovesBlack(random_black_piece, "back")
+            # moves = drawBoard.legalMovesBlack(random_black_piece, "back")
+            drawBoard.findAttackers()
+            moves = drawBoard.legalMoves(random_black_piece)
 
     print("We are moving: ", random_white_piece, moves)
 
