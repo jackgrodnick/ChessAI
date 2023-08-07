@@ -23,6 +23,26 @@ BLACK = (211, 211, 211)
 moves = []
 selected_piece = None
 
+def display_winner(winner):
+    font = pygame.font.SysFont(None, 55)
+    if winner == "Black":
+        text = font.render('Black Won!', True, (0, 0, 0), (255, 255, 255))
+    else:
+        text = font.render('White Won!', True, (255, 255, 255), (0, 0, 0))
+    
+    text_rect = text.get_rect(center=(canvas_width/2, canvas_height/2))
+    
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT or event.type == pygame.KEYDOWN:
+                return
+        
+        screen.fill((255, 255, 255))
+        screen.blit(text, text_rect)
+        pygame.display.flip()
+    
+
+
 while running:
 
     for event in pygame.event.get():
@@ -54,7 +74,7 @@ while running:
 
 
             if players_turn:
-                print("attack: ", drawBoard.findAttackers())
+                print("attack: ", drawBoard.findAttackers(drawBoard.getBoard()))
 
                 if len(moves) != 0 and selected_piece is not None:
                     if [mouse_pos[1]//100, mouse_pos[0]//100] in moves:
@@ -96,24 +116,33 @@ while running:
                 if human_color == "White":
                     # moves = drawBoard.legalMovesWhite(selected_piece, "front")
                     moves = drawBoard.legalMoves(selected_piece)
+
+                    if moves == "Black Won!":
+                        display_winner("Black")
+                        running = False  # End the main loop
+
                     
                 elif human_color == "Black":
                     # moves = drawBoard.legalMovesBlack(selected_piece, "front")
                     moves = drawBoard.legalMoves(selected_piece)
+                    if moves == "White Won!":
+                        display_winner("White")
+                        running = False  # End the main loop
                     
 
                 drawBoard.drawMoves(screen, moves)
             
 
     if not players_turn and human_color is not None:
-        chessAI.move(drawBoard.getBoard(), ai_color, screen, BLACK, WHITE)
+        result = chessAI.move(drawBoard.getBoard(), ai_color, screen, BLACK, WHITE)
+        if result is not None:
+            display_winner(result)
         players_turn = True
        
 
         
     if human_color is None:
         chooseColor.drawMain(screen, canvas_width, canvas_height)
-        
 
 # Quit pygame
 pygame.quit()
